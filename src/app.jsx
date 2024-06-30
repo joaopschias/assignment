@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import logo from './logo.svg';
 import './__app.css';
 
@@ -17,6 +18,9 @@ const app = () => {
         >
           Learn React
         </a>
+        <Button variant="contained" color="primary">
+          Hello World
+        </Button>
       </header>
     </div>
   );
