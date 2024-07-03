@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
-import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
 import {
   increment,
   decrement,
   fetchExampleDataRequest,
-} from './app/slices/exampleSlice';
-import logo from './logo.svg';
+} from '@/app/slices/exampleSlice';
+import MainLayout from '@/components/templates/main-layout/main-layout';
+
 import './__app.css';
 
-const app = () => {
+const App = () => {
   const count = useSelector(state => state.example.value);
   const data = useSelector(state => state.example.data);
   const status = useSelector(state => state.example.status);
@@ -22,10 +23,22 @@ const app = () => {
     }
   }, [status, dispatch]);
 
+  const navItems = [
+    { id: '1', label: 'Home' },
+    { id: '2', label: 'About' },
+    { id: '3', label: 'Contact' },
+  ];
+  const headerTitle = 'MyApp';
+  const footerText = '© 2024 MyApp. All rights reserved.';
+
   return (
-    <div className="app">
-      <header className="app-header">
-        <img src={logo} className="app-logo" alt="logo" />
+    <MainLayout
+      headerTitle={headerTitle}
+      navItems={navItems}
+      footerText={footerText}
+    >
+      <div className="app-content">
+        <h1>Welcome to MyApp</h1>
         <p>
           Edit <code>src/app.js</code> and save to reload.
         </p>
@@ -37,7 +50,7 @@ const app = () => {
         >
           Learn React
         </a>
-        <div>
+        <div className="counter-section">
           <h1>Count: {count}</h1>
           <Button
             onClick={() => dispatch(increment())}
@@ -54,15 +67,15 @@ const app = () => {
             Decrement
           </Button>
         </div>
-        <div>
+        <div className="async-data-section">
           <h2>Async Data:</h2>
           {status === 'loading' && <p>Loading...</p>}
           {status === 'succeeded' && <pre>{JSON.stringify(data, null, 2)}</pre>}
           {status === 'failed' && <p>Error: {error}</p>}
         </div>
-      </header>
-    </div>
+      </div>
+    </MainLayout>
   );
 };
 
-export default app;
+export default App;

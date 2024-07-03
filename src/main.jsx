@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
-import store from './app/store';
+
+import { store } from '@/app/store';
+
 import './index.css';
 import App from './app';
 import reportWebVitals from './reportWebVitals';

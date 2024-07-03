@@ -27,8 +27,8 @@
     "prettier"
   ],
   "rules": {
-    "react/jsx-uses-react": "off", // Not necessary in React 17+
-    "react/react-in-jsx-scope": "off", // Not necessary in React 17+
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-uses-vars": "error",
     "react/jsx-filename-extension": [
       1,
@@ -49,18 +49,21 @@
     "react/jsx-props-no-spreading": "off",
     "prettier/prettier": ["error"]
   },
+  "globals": {
+    "vi": "readonly",
+    "vitest": "readonly"
+  },
   "settings": {
     "import/resolver": {
-      "node": {
-        "paths": [
-          "src"
+      "alias": {
+        "map": [
+          ["@", "./src"]
         ],
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }
