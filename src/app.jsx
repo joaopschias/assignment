@@ -9,6 +9,7 @@ import {
 import MainLayout from '@/components/templates/main-layout/main-layout';
 
 import './__app.css';
+import LoginForm from '@/components/organisms/login-form/login-form';
 
 const App = () => {
   const count = useSelector(state => state.example.value);
@@ -50,6 +51,9 @@ const App = () => {
         >
           Learn React
         </a>
+        <div>
+          <LoginForm />
+        </div>
         <div className="counter-section">
           <h1>Count: {count}</h1>
           <Button

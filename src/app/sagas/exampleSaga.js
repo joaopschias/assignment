@@ -1,24 +1,25 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import axios from 'axios';
 import {
   fetchExampleDataRequest,
   fetchExampleDataSuccess,
   fetchExampleDataFailure,
 } from '../slices/exampleSlice';
 
-// Função para fazer a chamada à API com um atraso
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+// Function to make the API call with a delay
 function fetchExampleDataApi() {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(
-        fetch('https://jsonplaceholder.typicode.com/todos/1').then(response =>
-          response.json(),
-        ),
+        axios.get(`${API_BASE_URL}/users`).then(response => response.data),
       );
-    }, 2000); // Atraso de 2 segundos
+    }, 2000); // 2 seconds delay
   });
 }
 
-// Worker saga: fará a chamada à API
+// Worker saga: will perform the API call
 function* fetchExampleData() {
   try {
     const data = yield call(fetchExampleDataApi);
@@ -28,7 +29,7 @@ function* fetchExampleData() {
   }
 }
 
-// Watcher saga: observará as ações
+// Watcher saga: will watch for actions
 function* exampleSaga() {
   yield takeEvery(fetchExampleDataRequest.type, fetchExampleData);
 }
