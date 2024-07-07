@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Label from '@/components/atoms/label/label';
+import Label from '@/components/atoms/label/label.component';
 
-import './info-box.scss';
+import './info-box.component.scss';
 
 const propTypes = {
   label: PropTypes.string.isRequired,

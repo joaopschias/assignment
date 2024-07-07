@@ -1,6 +1,10 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import { loginRequest, loginSuccess, loginFailure } from '../slices/authSlice';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  loginRequest,
+  loginSuccess,
+  loginFailure,
+} from '@/logic/authentication/ducks/auth-slice';
 
 function* loginSaga(action) {
   try {

@@ -5,11 +5,11 @@ import {
   increment,
   decrement,
   fetchExampleDataRequest,
-} from '@/app/slices/exampleSlice';
-import MainLayout from '@/components/templates/main-layout/main-layout';
+} from '@/logic/example/ducks/example-slice';
+import MainLayout from '@/components/templates/main-layout/main-layout.component';
+import LoginForm from '@/components/organisms/login-form/login-form.component';
 
 import './__app.css';
-import LoginForm from '@/components/organisms/login-form/login-form';
 
 const App = () => {
   const count = useSelector(state => state.example.value);

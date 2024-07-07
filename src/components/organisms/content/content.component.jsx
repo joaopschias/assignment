@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import './content.scss';
+import './content.component.scss';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

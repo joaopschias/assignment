@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
-import './footer.scss';
+import './footer.component.scss';
 
 const propTypes = {
   text: PropTypes.string.isRequired,

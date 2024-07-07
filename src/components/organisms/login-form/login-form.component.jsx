@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, TextField, Box, Typography } from '@mui/material';
-import { loginRequest } from '@/app/slices/authSlice';
-import './login-form.scss';
+import { loginRequest } from '@/logic/authentication/ducks/auth-slice';
+import './login-form.component.scss';
 
 const LoginForm = () => {
   const dispatch = useDispatch();

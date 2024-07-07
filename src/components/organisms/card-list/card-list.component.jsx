@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import InfoBox from '@/components/molecules/info-box/info-box';
+import InfoBox from '@/components/molecules/info-box/info-box.component';
 
-import './card-list.scss';
+import './card-list.component.scss';
 
 const propTypes = {
   items: PropTypes.arrayOf(

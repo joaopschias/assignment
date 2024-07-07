@@ -3,11 +3,10 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from '@/app/rootReducer';
-import rootSaga from '@/app/rootSaga';
+import rootReducer from '@/logic/root-reducer';
+import rootSaga from '@/logic/root-saga';
 import App from './app';
 
-// Configuração da Store para os testes
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
   reducer: rootReducer,

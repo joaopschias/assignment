@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import CardList from './card-list';
+import CardList from './card-list.component';
 
 const items = [
   { label: 'Label 1', info: 'Info 1' },

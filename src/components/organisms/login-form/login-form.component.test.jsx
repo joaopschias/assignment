@@ -2,8 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { loginRequest } from '@/app/slices/authSlice';
-import LoginForm from './login-form';
+import { loginRequest } from '@/logic/authentication/ducks/auth-slice';
+import LoginForm from './login-form.component';
 
 const mockStore = configureStore([]);
 let store;

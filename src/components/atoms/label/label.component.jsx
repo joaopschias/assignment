@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import './label.scss';
+import './label.component.scss';
 
 const propTypes = {
   text: PropTypes.string.isRequired,

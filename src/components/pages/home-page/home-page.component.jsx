@@ -1,6 +1,6 @@
-import MainLayout from '@/components/templates/main-layout/main-layout';
+import MainLayout from '@/components/templates/main-layout/main-layout.component';
 
-import './home-page.scss';
+import './home-page.component.scss';
 
 const HomePage = () => {
   const navItems = ['Home', 'About', 'Contact'];

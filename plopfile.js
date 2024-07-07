@@ -17,17 +17,17 @@ module.exports = plop => {
     actions: [
       {
         type: 'add',
-        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.jsx',
+        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.component.jsx',
         templateFile: 'plop-templates/component.jsx.hbs',
       },
       {
         type: 'add',
-        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.scss',
+        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.component.scss',
         templateFile: 'plop-templates/component.scss.hbs',
       },
       {
         type: 'add',
-        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.test.jsx',
+        path: 'src/components/{{type}}s/{{kebabCase name}}/{{kebabCase name}}.component.test.jsx',
         templateFile: 'plop-templates/component.test.jsx.hbs',
       },
     ],

@@ -1,10 +1,10 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   fetchExampleDataRequest,
   fetchExampleDataSuccess,
   fetchExampleDataFailure,
-} from '../slices/exampleSlice';
+} from '@/logic/example/ducks/example-slice';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 

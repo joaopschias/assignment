@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MainLayout from './main-layout';
+import MainLayout from './main-layout.component';
 
 const headerTitle = 'MyApp';
 const navItems = [

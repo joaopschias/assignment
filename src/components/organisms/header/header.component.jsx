@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
-import './header.scss';
+import './header.component.scss';
 
 const propTypes = {
   title: PropTypes.string.isRequired,

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Header from './header';
+import Header from './header.component';
 
 const navItems = [
   { id: '1', label: 'Home' },
