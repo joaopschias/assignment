@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-
+import { Link } from 'react-router-dom';
 import './header.component.scss';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
   navItems: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
+      path: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };
@@ -21,7 +21,12 @@ const Header = ({ title, navItems }) => {
           {title}
         </Typography>
         {navItems.map(item => (
-          <Button key={item.id} color="inherit">
+          <Button
+            key={item.path}
+            color="inherit"
+            component={Link}
+            to={item.path}
+          >
             {item.label}
           </Button>
         ))}

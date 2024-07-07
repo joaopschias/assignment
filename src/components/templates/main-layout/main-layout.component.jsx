@@ -1,27 +1,19 @@
 import PropTypes from 'prop-types';
-import Header from '@/components/organisms/header/header.component';
-import Footer from '@/components/organisms/footer/footer.component';
+import { Header } from '@/components/organisms/header';
+import { Footer } from '@/components/organisms/footer';
 import Content from '@/components/organisms/content/content.component';
 import './main-layout.component.scss';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  headerTitle: PropTypes.string.isRequired,
-  navItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  footerText: PropTypes.string.isRequired,
 };
 
-const MainLayout = ({ children, headerTitle, navItems, footerText }) => {
+const MainLayout = ({ children }) => {
   return (
     <div className="main-layout">
-      <Header title={headerTitle} navItems={navItems} />
+      <Header />
       <Content>{children}</Content>
-      <Footer text={footerText} />
+      <Footer />
     </div>
   );
 };

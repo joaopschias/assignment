@@ -1,38 +1,43 @@
 import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import MainLayout from './main-layout.component';
 
-const headerTitle = 'MyApp';
-const navItems = [
-  { id: '1', label: 'Home' },
-  { id: '2', label: 'About' },
-  { id: '3', label: 'Contact' },
-];
-const footerText = '© 2024 MyApp. All rights reserved.';
+// Mock the Header component
+vi.mock('@/components/organisms/header', () => ({
+  Header: () => <div>Mocked Header</div>,
+}));
 
-test('renders MainLayout component', () => {
-  render(
-    <MainLayout
-      headerTitle={headerTitle}
-      navItems={navItems}
-      footerText={footerText}
-    >
-      <div>Main Content</div>
-    </MainLayout>,
-  );
+// Mock the Footer component
+vi.mock('@/components/organisms/footer', () => ({
+  Footer: () => <div>Mocked Footer</div>,
+}));
 
-  // Check for header title
-  expect(screen.getByText('MyApp')).toBeInTheDocument();
+// Mock the Content component
+vi.mock('@/components/organisms/content/content.component', () => ({
+  default: ({ children }) => <div>Mocked Content {children}</div>,
+}));
 
-  // Check for navigation items using a more flexible matcher
-  navItems.forEach(item => {
-    expect(screen.getByText(item.label)).toBeInTheDocument();
+describe('MainLayout', () => {
+  it('renders the header', () => {
+    render(<MainLayout>Test Content</MainLayout>);
+    expect(screen.getByText('Mocked Header')).toBeInTheDocument();
   });
 
-  // Check for main content
-  expect(screen.getByText('Main Content')).toBeInTheDocument();
+  it('renders the content with children', () => {
+    render(<MainLayout>Test Content</MainLayout>);
+    expect(screen.getByText('Mocked Content Test Content')).toBeInTheDocument();
+  });
 
-  // Check for footer text
-  expect(
-    screen.getByText('© 2024 MyApp. All rights reserved.'),
-  ).toBeInTheDocument();
+  it('renders the footer', () => {
+    render(<MainLayout>Test Content</MainLayout>);
+    expect(screen.getByText('Mocked Footer')).toBeInTheDocument();
+  });
+
+  it('renders the main layout container', () => {
+    render(<MainLayout>Test Content</MainLayout>);
+    const mainLayoutDiv = screen
+      .getByText('Mocked Header')
+      .closest('.main-layout');
+    expect(mainLayoutDiv).toHaveClass('main-layout');
+  });
 });
