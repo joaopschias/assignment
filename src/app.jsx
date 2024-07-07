@@ -19,21 +19,7 @@ const App = () => {
       footerText={footerText}
     >
       <div className="app-content">
-        <h1>Welcome to MyApp</h1>
-        <p>
-          Edit <code>src/app.js</code> and save to reload.
-        </p>
-        <a
-          className="app-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <div>
-          <LoginForm />
-        </div>
+        <LoginForm />
       </div>
     </MainLayout>
   );
