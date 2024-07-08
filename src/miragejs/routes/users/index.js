@@ -13,7 +13,6 @@ export default function userRoutes() {
 
     if (user && user.attrs.password === password) {
       return {
-        user: user.attrs,
         token: 'fake-jwt-token',
       };
     }

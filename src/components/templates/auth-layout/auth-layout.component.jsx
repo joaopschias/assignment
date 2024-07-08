@@ -9,7 +9,7 @@ const AuthLayout = () => {
         <CssBaseline />
         <Box className="auth-box">
           <Typography component="h1" variant="h5" className="auth-title">
-            Welcome Back
+            Welcome!
           </Typography>
           <Outlet />
         </Box>

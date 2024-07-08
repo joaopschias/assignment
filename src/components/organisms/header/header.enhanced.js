@@ -3,6 +3,7 @@ import {
   headerNavigationSelector,
   headerTitleSelector,
 } from '@/logic/header/ducks/header-selector';
+import { logout } from '@/logic/authentication/ducks/auth-slice';
 import Header from './header.component';
 
 const mapStateToProps = state => ({
@@ -10,7 +11,9 @@ const mapStateToProps = state => ({
   navItems: headerNavigationSelector(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  onLogout: logout,
+};
 
 const HeaderEnhanced = connect(mapStateToProps, mapDispatchToProps)(Header);
 
