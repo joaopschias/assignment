@@ -4,15 +4,10 @@ import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 
 import { store } from '@/app/store';
-import makeServer from '@/miragejs/server';
 
 import './main.scss';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
-
-if (process.env.NODE_ENV === 'development') {
-  makeServer();
-}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

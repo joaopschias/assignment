@@ -47,6 +47,7 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "prettier/prettier": ["error"],
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off"

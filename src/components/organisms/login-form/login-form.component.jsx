@@ -1,41 +1,52 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import { Button, TextField, Box, Typography } from '@mui/material';
-import { loginRequest } from '@/logic/authentication/ducks/auth-slice';
 import './login-form.component.scss';
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
-  const { token, error, loading } = useSelector(state => state.auth);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+const propTypes = {
+  token: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+};
 
-  useEffect(() => {
-    if (error) {
-      setMessage('Invalid credentials, please try again.');
-    } else if (token) {
-      setMessage('Login successful!');
-    } else {
-      setMessage('');
-    }
-  }, [error, token]);
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  password: Yup.string().required('Password is required'),
+});
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(loginRequest({ email, password }));
+const LoginForm = ({ token = null, error = null, loading, login }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = data => {
+    login(data.email, data.password);
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} className="login-form">
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="login-form"
+    >
       <Typography variant="h4" gutterBottom className="login-form-title">
         Login
       </Typography>
       <TextField
         label="Email"
         type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        {...register('email')}
+        error={!!errors.email}
+        helperText={errors.email?.message}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -43,8 +54,9 @@ const LoginForm = () => {
       <TextField
         label="Password"
         type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
+        {...register('password')}
+        error={!!errors.password}
+        helperText={errors.password?.message}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -58,16 +70,20 @@ const LoginForm = () => {
       >
         {loading ? 'Logging in...' : 'Login'}
       </Button>
-      {message && (
-        <Typography
-          className="login-form-message"
-          color={token ? 'primary' : 'error'}
-        >
-          {message}
+      {error && (
+        <Typography className="login-form-message" color="error">
+          {error}
+        </Typography>
+      )}
+      {token && (
+        <Typography className="login-form-message" color="primary">
+          Login successful!
         </Typography>
       )}
     </Box>
   );
 };
+
+LoginForm.propTypes = propTypes;
 
 export default LoginForm;

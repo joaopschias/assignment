@@ -1,3 +1,25 @@
+.header-toolbar {
+  justify-content: space-between;
+}
+
 .header-title {
   flex-grow: 1;
+}
+
+.header-icon-button {
+  padding: 8px;
+}
+
+.profile-menu {
+  .profile-menu-header {
+    pointer-events: none;
+  }
+
+  .profile-menu-item {
+    pointer-events: auto;
+  }
+}
+
+.custom-menu-paper {
+  top: 56px !important;
 }
