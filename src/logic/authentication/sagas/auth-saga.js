@@ -5,7 +5,8 @@ import loginApi from '../api/auth-api';
 function* loginSaga(action) {
   try {
     const response = yield call(loginApi, action.payload);
-    yield put(loginSuccess(response));
+    yield put(loginSuccess({ token: response.token }));
+    window.location.href = '/dashboard';
   } catch (error) {
     yield put(loginFailure(error.message));
   }

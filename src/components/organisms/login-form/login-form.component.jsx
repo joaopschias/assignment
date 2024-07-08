@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Button, TextField, Box, Typography } from '@mui/material';
-import { loginRequest } from '@/logic/authentication/ducks/auth-slice';
 import './login-form.component.scss';
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
-  const { token, error, loading } = useSelector(state => state.auth);
+const propTypes = {
+  token: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+const LoginForm = ({ token = null, error = null, loading, login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -21,9 +25,11 @@ const LoginForm = () => {
     }
   }, [error, token]);
 
+  const handleEmailChange = e => setEmail(e.target.value);
+  const handlePasswordChange = e => setPassword(e.target.value);
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(loginRequest({ email, password }));
+    login(email, password);
   };
 
   return (
@@ -35,7 +41,7 @@ const LoginForm = () => {
         label="Email"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={handleEmailChange}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -44,7 +50,7 @@ const LoginForm = () => {
         label="Password"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -61,7 +67,7 @@ const LoginForm = () => {
       {message && (
         <Typography
           className="login-form-message"
-          color={token ? 'primary' : 'error'}
+          color={message === 'Login successful!' ? 'primary' : 'error'}
         >
           {message}
         </Typography>
@@ -69,5 +75,7 @@ const LoginForm = () => {
     </Box>
   );
 };
+
+LoginForm.propTypes = propTypes;
 
 export default LoginForm;

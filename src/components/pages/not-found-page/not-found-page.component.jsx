@@ -16,7 +16,12 @@ const NotFoundPage = ({ goBack }) => {
       <Typography variant="h5" component="div" gutterBottom>
         Page Not Found
       </Typography>
-      <Button variant="contained" color="primary" onClick={goBack}>
+      <Button
+        className="not-found-button"
+        variant="contained"
+        color="primary"
+        onClick={goBack}
+      >
         Go Back
       </Button>
     </Box>

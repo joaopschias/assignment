@@ -1,4 +1,4 @@
-import LoginForm from '@/components/organisms/login-form/login-form.component';
+import { LoginForm } from '@/components/organisms/login-form';
 
 import './login-page.component.scss';
 
