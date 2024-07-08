@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AuthLayout from '@/components/templates/auth-layout/auth-layout.component';
 import HomePage from '@/components/pages/home-page/home-page.component';
 import LoginPage from '@/components/pages/login-page/login-page.component';
+import { NotFoundPage } from '@/components/pages/not-found-page';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Register Page</div>, // Placeholder para a página de registro futura
+        element: <div>Register Page</div>,
       },
     ],
   },
@@ -34,9 +35,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Reset Password Page</div>, // Placeholder para a página de redefinição de senha futura
+        element: <div>Reset Password Page</div>,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
