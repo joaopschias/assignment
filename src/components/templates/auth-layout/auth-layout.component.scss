@@ -1,0 +1,10 @@
+.auth-layout {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .auth-title {
+    margin-bottom: 24px;
+  }
+}
