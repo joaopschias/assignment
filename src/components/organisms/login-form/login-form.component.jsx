@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import { Button, TextField, Box, Typography } from '@mui/material';
 import './login-form.component.scss';
 
@@ -10,38 +12,41 @@ const propTypes = {
   login: PropTypes.func.isRequired,
 };
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  password: Yup.string().required('Password is required'),
+});
+
 const LoginForm = ({ token = null, error = null, loading, login }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
-  useEffect(() => {
-    if (error) {
-      setMessage('Invalid credentials, please try again.');
-    } else if (token) {
-      setMessage('Login successful!');
-    } else {
-      setMessage('');
-    }
-  }, [error, token]);
-
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handlePasswordChange = e => setPassword(e.target.value);
-  const handleSubmit = e => {
-    e.preventDefault();
-    login(email, password);
+  const onSubmit = data => {
+    login(data.email, data.password);
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} className="login-form">
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="login-form"
+    >
       <Typography variant="h4" gutterBottom className="login-form-title">
         Login
       </Typography>
       <TextField
         label="Email"
         type="email"
-        value={email}
-        onChange={handleEmailChange}
+        {...register('email')}
+        error={!!errors.email}
+        helperText={errors.email?.message}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -49,8 +54,9 @@ const LoginForm = ({ token = null, error = null, loading, login }) => {
       <TextField
         label="Password"
         type="password"
-        value={password}
-        onChange={handlePasswordChange}
+        {...register('password')}
+        error={!!errors.password}
+        helperText={errors.password?.message}
         fullWidth
         margin="normal"
         className="login-form-input"
@@ -64,12 +70,14 @@ const LoginForm = ({ token = null, error = null, loading, login }) => {
       >
         {loading ? 'Logging in...' : 'Login'}
       </Button>
-      {message && (
-        <Typography
-          className="login-form-message"
-          color={message === 'Login successful!' ? 'primary' : 'error'}
-        >
-          {message}
+      {error && (
+        <Typography className="login-form-message" color="error">
+          {error}
+        </Typography>
+      )}
+      {token && (
+        <Typography className="login-form-message" color="primary">
+          Login successful!
         </Typography>
       )}
     </Box>
