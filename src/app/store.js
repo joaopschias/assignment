@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+import { setUpInterceptors } from '@/app/interceptor';
 import rootSaga from '@/logic/root-saga';
 import rootReducer from '@/logic/root-reducer';
 
@@ -12,5 +13,7 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
+
+setUpInterceptors(store);
 
 export default store;
