@@ -36,8 +36,15 @@ export const setUpInterceptors = store => {
     },
     error => {
       if (error.response && error.response.status === 401) {
-        store.dispatch(logout());
-        window.location.href = '/login';
+        const requestUrl = error.response.config.url;
+        if (requestUrl && requestUrl.startsWith('auth')) {
+          // Handle /auth/* routes differently if needed
+          // @TODO: Improve this logic in the future
+        } else {
+          // Default behavior for other routes
+          store.dispatch(logout());
+          window.location.href = '/login';
+        }
       }
       return Promise.reject(error);
     },
