@@ -1,13 +1,18 @@
 import api from '@/app/interceptor';
 
-export const getAllUsers = async () => {
+const fetchAllUsers = async () => {
   const response = await api.get('/users');
   return response.data.payload;
 };
 
-const fetchUserApi = async userId => {
+const fetchUserById = async userId => {
   const response = await api.get(`/users/${userId}`);
   return response.data.payload;
 };
 
-export default fetchUserApi;
+const deleteUserById = async userId => {
+  const response = await api.delete(`/users/${userId}`);
+  return response.data.payload;
+};
+
+export { fetchAllUsers, fetchUserById, deleteUserById };

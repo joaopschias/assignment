@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Typography, Box, CircularProgress, Alert } from '@mui/material';
 import MainLayout from '@/components/templates/main-layout/main-layout.component';
-import UserTable from '@/components/organisms/user-table/user-table.component';
+import { UserTable } from '@/components/organisms/user-table';
 
 import './user-list-page.component.scss';
 

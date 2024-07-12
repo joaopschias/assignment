@@ -15,6 +15,20 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import './user-detail-modal.component.scss';
 
+const propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  fetchUserDetails: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+};
+
 const UserDetailModal = ({
   user,
   open,
@@ -84,18 +98,6 @@ const UserDetailModal = ({
   );
 };
 
-UserDetailModal.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
-  }),
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  fetchUserDetails: PropTypes.func.isRequired,
-  userId: PropTypes.number.isRequired,
-};
+UserDetailModal.propTypes = propTypes;
 
 export default UserDetailModal;
