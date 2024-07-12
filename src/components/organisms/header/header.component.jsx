@@ -7,39 +7,34 @@ import {
   Button,
   Menu,
   MenuItem,
-  IconButton,
   Box,
-  Avatar,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import navigationConfig from '@/config/navigation-config';
+import { UserMenu } from '@/components/molecules/user-menu';
 import './header.component.scss';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  navItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      path: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  onLogout: PropTypes.func.isRequired,
 };
 
-const Header = ({ title, navItems, onLogout }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+const Header = ({ title }) => {
+  const [submenuAnchorEls, setSubmenuAnchorEls] = useState({});
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
+  const navItems = navigationConfig;
+
+  const handleSubmenu = (event, path) => {
+    setSubmenuAnchorEls(prevState => ({
+      ...prevState,
+      [path]: event.currentTarget,
+    }));
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    onLogout();
-    handleClose();
+  const handleClose = path => {
+    setSubmenuAnchorEls(prevState => ({
+      ...prevState,
+      [path]: null,
+    }));
   };
 
   return (
@@ -48,65 +43,47 @@ const Header = ({ title, navItems, onLogout }) => {
         <Typography variant="h6" className="header-title">
           {title}
         </Typography>
-        {navItems.map(item => (
-          <Button
-            key={item.path}
-            color="inherit"
-            component={Link}
-            to={item.path}
-          >
-            {item.label}
-          </Button>
-        ))}
-        <Box sx={{ flexGrow: 0 }}>
-          <IconButton
-            onClick={handleMenu}
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            className="header-icon-button"
-          >
-            <AccountCircle />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            classes={{ paper: 'custom-menu-paper' }}
-            className="profile-menu"
-          >
-            <Box
-              display="flex"
-              alignItems="center"
-              p={2}
-              className="profile-menu-header"
-            >
-              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
-              <Box ml={2}>
-                <Typography variant="body1">Hello John Doe</Typography>
-                <Typography variant="body2">john.doe@example.com</Typography>
-              </Box>
+        {navItems.map(item =>
+          item.children ? (
+            <Box key={item.path}>
+              <Button
+                color="inherit"
+                onClick={event => handleSubmenu(event, item.path)}
+              >
+                {item.label}
+              </Button>
+              <Menu
+                anchorEl={submenuAnchorEls[item.path]}
+                open={Boolean(submenuAnchorEls[item.path])}
+                onClose={() => handleClose(item.path)}
+                keepMounted
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              >
+                {item.children.map(subItem => (
+                  <MenuItem
+                    key={`${item.path}${subItem.path}`}
+                    component={Link}
+                    to={`${item.path}${subItem.path}`}
+                    onClick={() => handleClose(item.path)}
+                  >
+                    {subItem.label}
+                  </MenuItem>
+                ))}
+              </Menu>
             </Box>
-            <MenuItem onClick={handleClose} className="profile-menu-item">
-              My Account
-            </MenuItem>
-            <MenuItem onClick={handleLogout} className="profile-menu-item">
-              Logout
-            </MenuItem>
-          </Menu>
-        </Box>
+          ) : (
+            <Button
+              key={item.path}
+              color="inherit"
+              component={Link}
+              to={item.path}
+            >
+              {item.label}
+            </Button>
+          ),
+        )}
+        <UserMenu />
       </Toolbar>
     </AppBar>
   );
