@@ -1,12 +1,12 @@
-import axios from 'axios';
+import api from '@/app/interceptor';
 
 export const getAllUsers = async () => {
-  const response = await axios.get('/users');
+  const response = await api.get('/users');
   return response.data;
 };
 
 const fetchUserApi = async userId => {
-  const response = await axios.get(`/users/${userId}`);
+  const response = await api.get(`/users/${userId}`);
   return response.data;
 };
 

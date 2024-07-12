@@ -1,10 +1,34 @@
-import { Paper, Typography, Box } from '@mui/material';
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Paper, Typography, Box, CircularProgress, Alert } from '@mui/material';
 import MainLayout from '@/components/templates/main-layout/main-layout.component';
+import UserTable from '@/components/organisms/user-table/user-table.component';
+
 import './user-list-page.component.scss';
 
-const propTypes = {};
+const propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  fetchUsers: PropTypes.func.isRequired,
+};
 
-const UserListPage = () => {
+const UserListPage = ({
+  users = [],
+  loading = false,
+  error = null,
+  fetchUsers,
+}) => {
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
   return (
     <MainLayout>
       <Box className="user-list-page">
@@ -12,12 +36,9 @@ const UserListPage = () => {
           <Typography className="user-list-title" variant="h4" gutterBottom>
             User List
           </Typography>
-          {/* Aqui vamos adicionar a tabela de listagem de usuários */}
-          <Box className="user-list-description">
-            <Typography variant="body1">
-              Aqui você pode ver todos os usuários cadastrados no sistema.
-            </Typography>
-          </Box>
+          {loading && <CircularProgress />}
+          {error && <Alert severity="error">{error}</Alert>}
+          {!loading && !error && <UserTable users={users} />}
         </Paper>
       </Box>
     </MainLayout>

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AuthLayout from '@/components/templates/auth-layout/auth-layout.component';
 import HomePage from '@/components/pages/home-page/home-page.component';
 import LoginPage from '@/components/pages/login-page/login-page.component';
-import UserListPage from '@/components/pages/user-list-page/user-list-page.component';
+import { UserListPage } from '@/components/pages/user-list-page';
 import { NotFoundPage } from '@/components/pages/not-found-page';
 import Authenticated from '@/logic/authentication/guards/authenticated';
 import Unauthenticated from '@/logic/authentication/guards/unauthenticated';
