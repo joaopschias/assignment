@@ -1,5 +1,4 @@
 import { LoginForm } from '@/components/organisms/login-form';
-import NotificationTester from '@/components/NotificationTester';
 
 import './login-page.component.scss';
 
@@ -9,7 +8,6 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <LoginForm />
-      <NotificationTester />
     </div>
   );
 };
