@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -15,24 +15,27 @@ import {
   Typography,
 } from '@mui/material';
 import { Visibility, Edit, Delete } from '@mui/icons-material';
+import { UserDetailModal } from '@/components/molecules/user-detail-modal';
 import './user-table.component.scss';
 
-const propTypes = {
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }),
-  ),
-};
-
 const UserTable = ({ users = [] }) => {
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const rowsPerPage = 20;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleOpenModal = userId => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUserId(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -63,7 +66,11 @@ const UserTable = ({ users = [] }) => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <Tooltip title="View">
-                      <IconButton aria-label="view" color="primary">
+                      <IconButton
+                        aria-label="view"
+                        color="primary"
+                        onClick={() => handleOpenModal(user.id)}
+                      >
                         <Visibility />
                       </IconButton>
                     </Tooltip>
@@ -97,10 +104,25 @@ const UserTable = ({ users = [] }) => {
           </TableFooter>
         )}
       </Table>
+      {selectedUserId && (
+        <UserDetailModal
+          open={isModalOpen}
+          handleClose={handleCloseModal}
+          userId={selectedUserId}
+        />
+      )}
     </TableContainer>
   );
 };
 
-UserTable.propTypes = propTypes;
+UserTable.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }),
+  ),
+};
 
 export default UserTable;

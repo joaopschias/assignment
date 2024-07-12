@@ -34,7 +34,7 @@ class User {
 
   static fromPlainObject(obj) {
     return new User(
-      obj.id,
+      obj._id,
       obj.name,
       obj.email,
       obj.password,
