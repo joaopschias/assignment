@@ -7,24 +7,24 @@ import {
 } from '../ducks/auth-slice';
 import loginApi from '../api/auth-api';
 
-function* loginSaga(action) {
+const loginSaga = function* loginSaga(action) {
   try {
     const response = yield call(loginApi, action.payload);
-    yield put(loginSuccess({ token: response.token }));
-    localStorage.setItem('token', response.token);
+    yield put(loginSuccess({ token: response.access_token }));
+    localStorage.setItem('token', response.access_token);
   } catch (error) {
     yield put(loginFailure(error.message));
   }
-}
+};
 
-function* logoutSaga() {
+const logoutSaga = function* logoutSaga() {
   localStorage.removeItem('token');
   yield;
-}
+};
 
-function* watchLoginSaga() {
+const watchLoginSaga = function* watchLoginSaga() {
   yield takeEvery(loginRequest.type, loginSaga);
   yield takeEvery(logout.type, logoutSaga);
-}
+};
 
 export default watchLoginSaga;

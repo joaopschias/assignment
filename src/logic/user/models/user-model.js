@@ -31,6 +31,32 @@ class User {
     });
     this.updatedAt = new Date().toISOString();
   }
+
+  static fromPlainObject(obj) {
+    return new User(
+      obj._id,
+      obj.name,
+      obj.email,
+      obj.password,
+      obj.emailVerifiedAt,
+      obj.rememberToken,
+      obj.createdAt,
+      obj.updatedAt,
+    );
+  }
+
+  toPlainObject() {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      emailVerifiedAt: this.emailVerifiedAt,
+      rememberToken: this.rememberToken,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
 }
 
 export default User;
