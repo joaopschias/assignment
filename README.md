@@ -21,7 +21,7 @@ To run and develop the project, ensure the following tools are installed:
 Clone the project repository from GitHub:
 
 ```bash
-git clone https://github.com/joaopschias/assignment-spa.git && cd assignment-spa
+git clone https://github.com/joaopschias/assignment.git && cd assignment
 ```
 
 #### 2. Install Dependencies
