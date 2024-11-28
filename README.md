@@ -45,7 +45,7 @@ cp .env.example .env
 Update the `.env` file with the appropriate API base URL for the Assignment API:
 
 ```env
-VITE_API_BASE_URL=http://localhost:3000/api
+VITE_API_BASE_URL=http://localhost:3000/
 ```
 
 ---
